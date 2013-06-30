@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -54,6 +57,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <EmbeddedResource Include="Resources\Authorizations\list.json" />
+    <EmbeddedResource Include="Resources\Authorizations\item.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GitHub.API\GitHub.API.csproj">
