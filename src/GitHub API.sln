@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{879F71D0-D794-4561-8F07-47F1C6E7AEDE}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHub.API", "GitHub.API\GitHub.API.csproj", "{8D121267-456F-47D2-8C93-8312511034CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHub.API.UnitTests", "GitHub.API.UnitTests\GitHub.API.UnitTests.csproj", "{0CFB1947-E6C1-4557-8222-6B78C1E6C833}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHub.APIUnitTests", "GitHub.APIUnitTests\GitHub.APIUnitTests.csproj", "{DD4CAE1B-35FD-4C7C-89BF-1947E4ABD164}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D121267-456F-47D2-8C93-8312511034CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D121267-456F-47D2-8C93-8312511034CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D121267-456F-47D2-8C93-8312511034CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D121267-456F-47D2-8C93-8312511034CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CFB1947-E6C1-4557-8222-6B78C1E6C833}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CFB1947-E6C1-4557-8222-6B78C1E6C833}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CFB1947-E6C1-4557-8222-6B78C1E6C833}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CFB1947-E6C1-4557-8222-6B78C1E6C833}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD4CAE1B-35FD-4C7C-89BF-1947E4ABD164}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD4CAE1B-35FD-4C7C-89BF-1947E4ABD164}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD4CAE1B-35FD-4C7C-89BF-1947E4ABD164}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD4CAE1B-35FD-4C7C-89BF-1947E4ABD164}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
