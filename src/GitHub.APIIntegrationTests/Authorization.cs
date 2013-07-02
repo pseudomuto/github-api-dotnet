@@ -65,6 +65,13 @@ namespace GitHub.APIIntegrationTests
                 {
                     Assert.Equal(HttpStatusCode.NotFound, this._subject.StatusCode);                    
                 }
+
+                [Fact]
+                public void SetsDataToUninitializedInstance()
+                {
+                    Assert.NotNull(this._subject.Data);
+                    Assert.Equal(0, this._subject.Data.Id);
+                }
             }            
         }
                 
@@ -83,6 +90,37 @@ namespace GitHub.APIIntegrationTests
                 Assert.Equal(HttpStatusCode.OK, this._subject.StatusCode);
                 Assert.NotNull(this._subject);
                 Assert.NotEmpty(this._subject.Data);
+            }
+        }
+
+        public class CreateAuthorization : BasicAuthIntegrationTest
+        {
+            private IRestResponse<API.Authorization> _subject;
+
+            protected override void Setup()
+            {
+                this._subject = this.APIClient.Authorizations().CreateAuthorization(new AuthorizationCreateOptions
+                {
+                    note = "Testing API"
+                }); 
+            }
+
+            [Fact]
+            public void ReturnsA200Response()
+            {
+                Assert.Equal(HttpStatusCode.Created, this._subject.StatusCode);
+            }
+
+            [Fact]
+            public void ReturnsATokenObject()
+            {
+                Assert.NotNull(this._subject.Data);
+            }
+
+            [Fact]
+            public void CreatesANewToken()
+            {
+                Assert.True(this._subject.Data.Id > 0);
             }
         }
     }

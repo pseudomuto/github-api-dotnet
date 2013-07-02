@@ -1,4 +1,5 @@
 ﻿using GitHub.API;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,9 @@ namespace GitHub.APIUnitTests
                 }
 
                 [Fact]
-                public void LeavesAuthValueAsNull()
+                public void LeavesAuthenticatorSetToNull()
                 {
-                    Assert.Null(this._subject.AuthValue);
+                    Assert.Null(this._subject.Authenticator);
                 }
             }
 
@@ -52,16 +53,15 @@ namespace GitHub.APIUnitTests
                 }
 
                 [Fact]
-                public void SetsAuthTypeToBasic()
+                public void SetAuthenticatorToHttpBasic()
                 {
-                    Assert.Equal(AuthType.Basic, this._subject.AuthType);
+                    Assert.IsAssignableFrom(typeof(HttpBasicAuthenticator), this._subject.Authenticator);                    
                 }
 
                 [Fact]
-                public void SetsAuthValueToBase64String()
+                public void SetsAuthTypeToBasic()
                 {
-                    var expected = Convert.ToBase64String(Encoding.UTF8.GetBytes("username:password"));
-                    Assert.Equal(expected, this._subject.AuthValue);
+                    Assert.Equal(AuthType.Basic, this._subject.AuthType);
                 }
             }
 
@@ -85,9 +85,9 @@ namespace GitHub.APIUnitTests
                 }
 
                 [Fact]
-                public void SetsAuthValueToToken()
+                public void SetsAuthenticatorToTokenAuthenticator()
                 {
-                    Assert.Equal("myAuthToken", this._subject.AuthValue);
+                    Assert.IsAssignableFrom(typeof(OAuth2Authenticator), this._subject.Authenticator);
                 }
             }
         }
@@ -112,9 +112,9 @@ namespace GitHub.APIUnitTests
             }
 
             [Fact]
-            public void SetsAuthValueToToken()
+            public void SetsAuthenticatorToTokenAuthenticator()
             {
-                Assert.Equal("myAuthToken", this._subject.AuthValue);
+                Assert.IsAssignableFrom(typeof(OAuth2Authenticator), this._subject.Authenticator);
             }
 
             [Fact]
@@ -150,14 +150,13 @@ namespace GitHub.APIUnitTests
             [Fact]
             public void SetsAuthTypeToBasic()
             {
-                Assert.Equal(AuthType.Basic, this._subject.AuthType);
+                Assert.Equal(AuthType.Basic, this._subject.AuthType);            
             }
 
             [Fact]
-            public void SetsAuthValueToBase64String()
+            public void SetAuthenticatorToHttpBasic()
             {
-                var expected = Convert.ToBase64String(Encoding.UTF8.GetBytes("username:password"));
-                Assert.Equal(expected, this._subject.AuthValue);
+                Assert.IsAssignableFrom(typeof(HttpBasicAuthenticator), this._subject.Authenticator);
             }
 
             [Fact]

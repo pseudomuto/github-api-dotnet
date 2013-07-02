@@ -19,7 +19,7 @@ This project is using [RestSharp](http://restsharp.org/) for handling communicat
 * Create a topic branch off master (NEVER work directly on master)
 * Make commits for logical units (small but complete features/fixes)
 * Provide clear comments (preferrably in the present tense for readability)
-* Ensure you've added tests for your commits and that you've run __*ALL*__ tests before committing
+* Ensure you've added unit and integration tests for your commits and that you've run __*ALL*__ tests before committing
 
 
 ## Submitting Changes

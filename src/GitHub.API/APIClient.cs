@@ -19,12 +19,13 @@ namespace GitHub.API
         private static readonly string API_HOST = "https://api.github.com";
 
         public AuthType AuthType { get; private set; }
-
-        public string AuthValue { get; private set; }
+        
+        public IAuthenticator Authenticator { get; private set; }
 
         public APIClient()
         {
             this.AuthType = AuthType.None;
+            this.Authenticator = null;
         }
 
         public APIClient(string authToken)
@@ -42,7 +43,7 @@ namespace GitHub.API
             if (string.IsNullOrEmpty(authToken)) throw new ArgumentNullException("authToken");
 
             this.AuthType = AuthType.Token;
-            this.AuthValue = authToken;
+            this.Authenticator = new OAuth2AuthorizationRequestHeaderAuthenticator(authToken);
 
             return this;
         }
@@ -53,16 +54,35 @@ namespace GitHub.API
             if (string.IsNullOrEmpty(password)) throw new ArgumentNullException("password");
 
             this.AuthType = AuthType.Basic;
-            this.AuthValue = this.MakeAuthHeaderValue(userName, password);
-
+            this.Authenticator = new HttpBasicAuthenticator(userName, password);
+            
             return this;
         }
+
+        #region [Individual APIs]
+
+        public AuthorizationsAPI Authorizations()
+        {
+            if (this.AuthType != API.AuthType.Basic)
+            {
+                throw new NotSupportedException("Only basic authentication is allowed for the Authorizations API");
+            }
+
+            return new AuthorizationsAPI(this);
+        }
+
+        #endregion
 
         protected internal virtual IRestResponse<TModel> ExecuteRequest<TModel>(IRestRequest request) where TModel : new()
         {
             this.PrepareRequest(request);
 
             var client = new RestClient(API_HOST);
+            if (this.Authenticator != null)
+            {
+                client.Authenticator = this.Authenticator;
+            }
+
             return client.Execute<TModel>(request);
         }
 
@@ -70,30 +90,11 @@ namespace GitHub.API
         {
             // add headers...
             this.SetContentType(request);
-            this.SetAuthHeader(request);
         }
 
         private void SetContentType(IRestRequest request)
         {
             request.AddHeader("Content-Type", "application/json");
         }
-
-        private void SetAuthHeader(IRestRequest request)
-        {
-            if (this.AuthType != API.AuthType.None)
-            {
-                request.AddHeader("Authorization", string.Format(
-                        "{0} {1}",
-                        this.AuthType == API.AuthType.Token ? "token" : "Basic",
-                        this.AuthValue
-                    ));
-            }
-        }
-
-        private string MakeAuthHeaderValue(string userName, string password)
-        {
-            var raw = Encoding.UTF8.GetBytes(string.Concat(userName, ":", password));
-            return Convert.ToBase64String(raw);
-        }        
     }
 }

@@ -47,7 +47,8 @@
     <Compile Include="Abstractions\BaseModel.cs" />
     <Compile Include="APIClient.cs" />
     <Compile Include="Abstractions\BaseAPI.cs" />
-    <Compile Include="API\AuthorizationsAPI.cs" />
+    <Compile Include="API\Authorizations\AuthorizationCreateOptions.cs" />
+    <Compile Include="API\Authorizations\AuthorizationsAPI.cs" />
     <Compile Include="Model\Authorization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

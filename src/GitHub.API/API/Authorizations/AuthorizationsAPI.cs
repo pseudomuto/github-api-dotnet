@@ -7,19 +7,6 @@ using System.Threading.Tasks;
 
 namespace GitHub.API
 {
-    public partial class APIClient
-    {
-        public AuthorizationsAPI Authorizations()
-        {
-            if (this.AuthType != API.AuthType.Basic)
-            {
-                throw new NotSupportedException("Only basic authentication is allowed for the Authorizations API");
-            }
-
-            return new AuthorizationsAPI(this);
-        }
-    }
-
     public class AuthorizationsAPI
     {
         private APIClient _apiClient;
@@ -41,6 +28,15 @@ namespace GitHub.API
         {
             var request = new RestRequest("/authorizations/{id}");
             request.AddUrlSegment("id", id.ToString());
+
+            return this._apiClient.ExecuteRequest<Authorization>(request);
+        }
+
+        public IRestResponse<Authorization> CreateAuthorization(AuthorizationCreateOptions options)
+        {
+            var request = new RestRequest("/authorizations", Method.POST);
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(options);
 
             return this._apiClient.ExecuteRequest<Authorization>(request);
         }
