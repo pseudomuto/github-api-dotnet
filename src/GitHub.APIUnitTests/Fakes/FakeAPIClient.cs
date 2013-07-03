@@ -19,22 +19,20 @@ namespace GitHub.APIUnitTests.Fakes
 
         public IRestRequest ProcessedRequest { get; private set; }
 
-        protected internal override IRestResponse<TModel> ExecuteRequest<TModel>(IRestRequest request)
+        protected internal override IRestResponse ExecuteRequest(IRestRequest request)
         {
             this.PrepareRequest(request);
             this.ProcessedRequest = request;
 
-            //var content = new ResourceHelper().GetEmbeddedResource(this.EmbeddedResourceName);
-            //var response = new RestResponse<TModel>();
-            //response.StatusCode = this.GetSuccessfulStatusCode(request);
-            //response.ResponseStatus = ResponseStatus.Completed;
-            //response.Content = content;
+            // integration tests will test results
+            return null;
+        }
 
-            //var json = new JsonDeserializer();            
-            //response.Data = json.Deserialize<TModel>(response);
-
-            //return response;
-
+        protected internal override IRestResponse<TModel> ExecuteRequest<TModel>(IRestRequest request)
+        {
+            this.PrepareRequest(request);
+            this.ProcessedRequest = request;
+            
             // integration tests will test results
             return null;
         }  

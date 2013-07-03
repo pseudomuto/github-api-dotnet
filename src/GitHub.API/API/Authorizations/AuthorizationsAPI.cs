@@ -40,5 +40,13 @@ namespace GitHub.API
 
             return this._apiClient.ExecuteRequest<Authorization>(request);
         }
+
+        public IRestResponse DeleteAuthorization(long id)
+        {
+            var request = new RestRequest("/authorizations/{id}", Method.DELETE);
+            request.AddUrlSegment("id", id.ToString());
+
+            return this._apiClient.ExecuteRequest(request);
+        }
     }
 }

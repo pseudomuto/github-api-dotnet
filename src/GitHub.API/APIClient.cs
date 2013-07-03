@@ -73,6 +73,19 @@ namespace GitHub.API
 
         #endregion
 
+        protected internal virtual IRestResponse ExecuteRequest(IRestRequest request)
+        {
+            this.PrepareRequest(request);
+
+            var client = new RestClient(API_HOST);
+            if (this.Authenticator != null)
+            {
+                client.Authenticator = this.Authenticator;
+            }
+
+            return client.Execute(request);
+        }
+
         protected internal virtual IRestResponse<TModel> ExecuteRequest<TModel>(IRestRequest request) where TModel : new()
         {
             this.PrepareRequest(request);

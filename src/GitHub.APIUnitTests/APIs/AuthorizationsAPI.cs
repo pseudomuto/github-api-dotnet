@@ -185,6 +185,35 @@ namespace GitHub.APIUnitTests.APIs
                 Assert.Contains("client_secret", body);
                 Assert.Contains("note_url", body);
             }
-        }        
+        }
+
+        public class DeleteAuthorization : BaseAuthorizationAPITest
+        {
+            private static readonly long RESOURCE_ID = 1L;
+
+            public DeleteAuthorization()
+            {                
+                this._basicAuthClient.Authorizations().DeleteAuthorization(RESOURCE_ID);
+            }
+
+            [Fact]
+            public void UsesDELETEMethod()
+            {
+                Assert.Equal(Method.DELETE, this.Subject.Method);
+            }
+
+            [Fact]
+            public void RequestsCorrectEndpoint()
+            {
+                Assert.Equal("/authorizations/{id}", this.Subject.Resource);
+            }
+
+            [Fact]
+            public void SetsUrlSegmentForId()
+            {
+                var name = this.Subject.Parameters.First(p => p.Name.Equals("id"));
+                Assert.Equal(RESOURCE_ID.ToString(), name.Value);
+            }
+        }
     }
 }
