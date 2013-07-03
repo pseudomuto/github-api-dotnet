@@ -36,7 +36,7 @@ namespace GitHub.API
         {
             var request = new RestRequest("/authorizations", Method.POST);
             request.RequestFormat = DataFormat.Json;
-            request.AddBody(options);
+            request.AddParameter("application/json", options.Serialize(), ParameterType.RequestBody);
 
             return this._apiClient.ExecuteRequest<Authorization>(request);
         }

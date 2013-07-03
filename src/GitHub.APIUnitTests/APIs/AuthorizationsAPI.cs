@@ -141,11 +141,11 @@ namespace GitHub.APIUnitTests.APIs
         {
             private AuthorizationCreateOptions _options = new AuthorizationCreateOptions
             {
-                scopes = new string[] { "public_repo" },
-                client_id = "SomeId",
-                client_secret = "SomeSecret",
-                note = "Some Note",
-                note_url = new Uri("http://pseudomuto.com/")
+                Scopes = new string[] { "public_repo" },
+                ClientId = "SomeId",
+                ClientSecret = "SomeSecret",
+                Note = "Some Note",
+                NoteURL = new Uri("http://pseudomuto.com/")
             };
 
             public CreateAuthorization()
@@ -175,6 +175,15 @@ namespace GitHub.APIUnitTests.APIs
             public void SetsRequestBody()
             {
                 Assert.Equal(1, this.Subject.Parameters.Count(p => p.Type.Equals(ParameterType.RequestBody)));
+            }
+
+            [Fact]
+            public void FormatsRequestBodyProperties()
+            {
+                var body = this.Subject.Parameters.First(p => p.Type.Equals(ParameterType.RequestBody)).Value.ToString();
+                Assert.Contains("client_id", body);
+                Assert.Contains("client_secret", body);
+                Assert.Contains("note_url", body);
             }
         }        
     }

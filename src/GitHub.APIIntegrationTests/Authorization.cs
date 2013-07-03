@@ -101,7 +101,7 @@ namespace GitHub.APIIntegrationTests
             {
                 this._subject = this.APIClient.Authorizations().CreateAuthorization(new AuthorizationCreateOptions
                 {
-                    note = "Testing API"
+                    Note = "Testing API"
                 }); 
             }
 

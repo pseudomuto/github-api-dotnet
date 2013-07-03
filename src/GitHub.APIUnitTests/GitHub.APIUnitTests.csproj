@@ -50,7 +50,10 @@
     <Compile Include="APIClient.cs" />
     <Compile Include="APIs\AuthorizationsAPI.cs" />
     <Compile Include="APITest.cs" />
+    <Compile Include="Extensions\String.cs" />
     <Compile Include="Fakes\FakeAPIClient.cs" />
+    <Compile Include="Fakes\FakeModel.cs" />
+    <Compile Include="Model\BaseModel.cs" />
     <Compile Include="ResourceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -32,4 +32,14 @@ namespace GitHub.APIIntegrationTests
             return new APIClient(USERNAME, PASSWORD);
         }
     }
+
+    public abstract class TokenAuthIntegrationTest : IntegrationTest
+    {
+        private static readonly string TOKEN = ConfigurationManager.AppSettings["GITHUB_API_TOKEN"];
+
+        protected override APIClient CreateClient()
+        {
+            return new APIClient(TOKEN);
+        }
+    }
 }

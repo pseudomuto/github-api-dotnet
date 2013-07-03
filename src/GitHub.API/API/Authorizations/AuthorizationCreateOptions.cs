@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace GitHub.API
 {
-    public class AuthorizationCreateOptions
+    public class AuthorizationCreateOptions : BaseModel
     {
-        public string[] scopes { get; set; }
+        public string[] Scopes { get; set; }
 
-        public string note { get; set; }
+        public string Note { get; set; }
 
-        public Uri note_url { get; set; }
+        public Uri NoteURL { get; set; }
 
-        public string client_id { get; set; }
+        public string ClientId { get; set; }
 
-        public string client_secret { get; set; }
+        public string ClientSecret { get; set; }
     }
 }
