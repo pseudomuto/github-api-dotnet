@@ -9,11 +9,11 @@ To have a simple and clean implementation of the GitHub API for .NET clients.
 
 ## Coming Up
 
-I'm currently working on the authorizations API with the intension of working on the user API next.
+Recently completed the [OAuth Authorization API](http://developer.github.com/v3/oauth/#oauth-authorizations-api). Will begin working on the [Users API](http://developer.github.com/v3/users/) next.
 
 ## Development
 
-This project currently targets .NET 4.5 and is built using VS 2012 Update 2 (though I'm not sure it's required for this).
+This project currently targets .NET 4.5 and is built using VS 2012 Update 3.
 
 If you're interested in contributing, check out the [CONTRIBUTING.md](https://github.com/pseudomuto/github-api-dotnet/blob/master/CONTRIBUTING.md) file for details.
 
