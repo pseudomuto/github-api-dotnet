@@ -124,7 +124,7 @@ namespace GitHub.APIUnitTests.APIs
                 Assert.Equal("https://api.github.com/authorizations/1", data.Url.ToString());
                 Assert.Equal("abc123", data.Token);
                 Assert.Equal("optional note", data.Note);
-                Assert.Equal("http://optional/note/url", data.NoteUrl.ToString());
+                Assert.Equal("http://optional/note/url", data.NoteURL.ToString());
 
                 var expectedDate = DateTime.Parse("2011-09-06T17:26:27Z", null, System.Globalization.DateTimeStyles.RoundtripKind);
                 Assert.Equal(expectedDate, data.CreatedAt);
@@ -213,6 +213,54 @@ namespace GitHub.APIUnitTests.APIs
             {
                 var name = this.Subject.Parameters.First(p => p.Name.Equals("id"));
                 Assert.Equal(RESOURCE_ID.ToString(), name.Value);
+            }
+        }
+
+        public class UpdateAuthorization : BaseAuthorizationAPITest
+        {
+            private static readonly long RESOURCE_ID = 1L;
+
+            public UpdateAuthorization()
+            {
+                var options = new API.AuthorizationUpdateOptions
+                {
+                    ScopeAction = AuthScopeAction.Add,
+                    Scopes = new string[] { "repo" },
+                    Note = "admin script"
+                };
+
+                this._basicAuthClient.Authorizations().UpdateAuthorization(RESOURCE_ID, options);
+            }
+
+            [Fact]
+            public void UsesPATCHMethod()
+            {
+                Assert.Equal(Method.PATCH, this.Subject.Method);
+            }
+
+            [Fact]
+            public void RequestsCorrectEndpoint()
+            {
+                Assert.Equal("/authorizations/{id}", this.Subject.Resource);
+            }
+
+            [Fact]
+            public void SetsUrlSegmentForId()
+            {
+                var name = this.Subject.Parameters.First(p => p.Name.Equals("id"));
+                Assert.Equal(RESOURCE_ID.ToString(), name.Value);
+            }
+
+            [Fact]
+            public void SetsRequestFormatToJSON()
+            {
+                Assert.Equal(DataFormat.Json, this.Subject.RequestFormat);
+            }
+
+            [Fact]
+            public void SetsRequestBody()
+            {
+                Assert.Equal(1, this.Subject.Parameters.Count(p => p.Type.Equals(ParameterType.RequestBody)));
             }
         }
     }

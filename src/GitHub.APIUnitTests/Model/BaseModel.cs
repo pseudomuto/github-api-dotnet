@@ -12,7 +12,11 @@ namespace GitHub.APIUnitTests.Model
     {
         public class Serialize
         {
-            private string _subject = new FakeModel().Serialize();
+            private string _subject = new FakeModel
+            {
+                ClientId = 10,
+                SomeName = "A Name Property"
+            }.Serialize();
 
             [Fact]
             public void CreatesObject()
@@ -25,6 +29,13 @@ namespace GitHub.APIUnitTests.Model
             {
                 Assert.Contains("\"some_name\":", this._subject);
                 Assert.Contains("\"client_id\":", this._subject);
+            }
+
+            [Fact]
+            public void SetsValues()
+            {
+                Assert.Contains(":10", this._subject);
+                Assert.Contains(":\"A Name Property\"", this._subject);
             }
         }
     }

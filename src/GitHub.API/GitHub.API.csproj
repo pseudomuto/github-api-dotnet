@@ -49,6 +49,7 @@
     <Compile Include="Abstractions\BaseAPI.cs" />
     <Compile Include="API\Authorizations\AuthorizationCreateOptions.cs" />
     <Compile Include="API\Authorizations\AuthorizationsAPI.cs" />
+    <Compile Include="API\Authorizations\AuthorizationUpdateOptions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Model\Authorization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

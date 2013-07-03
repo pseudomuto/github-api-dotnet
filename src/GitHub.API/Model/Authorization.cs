@@ -18,7 +18,7 @@ namespace GitHub.API
 
         public string Note { get; set; }
 
-        public Uri NoteUrl { get; set; }
+        public Uri NoteURL { get; set; }
 
         public DateTime UpdatedAt { get; set; }
 

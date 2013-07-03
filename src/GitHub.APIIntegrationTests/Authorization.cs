@@ -213,5 +213,86 @@ namespace GitHub.APIIntegrationTests
                 }
             }
         }
+
+        public class UpdateAuthorization
+        {
+            public class WhenAvailable : BasicAuthIntegrationTest, IDisposable
+            {
+                private IRestResponse<API.Authorization> _subject;
+
+                protected override void Setup()
+                {
+                    // create a token
+                    var created = this.APIClient.Authorizations().CreateAuthorization(new AuthorizationCreateOptions
+                    {
+                        Note = "DeletableAuthToken"
+                    });
+
+                    Assert.Equal(HttpStatusCode.Created, created.StatusCode);
+
+                    // delete the token
+                    var options = new API.AuthorizationUpdateOptions
+                    {
+                        Scopes = new string[] { "public_repo" },
+                        ScopeAction = AuthScopeAction.Add,
+                        NoteURL = new Uri("http://pseudomuto.com/")
+                    };
+
+                    this._subject = this.APIClient.Authorizations().UpdateAuthorization(created.Data.Id, options);
+                }
+
+                [Fact]
+                public void CompletesTheRequestWithoutError()
+                {
+                    Assert.Equal(ResponseStatus.Completed, this._subject.ResponseStatus);
+                }
+
+                [Fact]
+                public void ReturnsA200Response()
+                {
+                    Assert.Equal(HttpStatusCode.OK, this._subject.StatusCode);
+                }
+
+                [Fact]
+                public void LeavesExistingDataAlone()
+                {
+                    Assert.Equal("DeletableAuthToken", this._subject.Data.Note);
+                }
+
+                [Fact]
+                public void UpdatesTheNoteURL()
+                {
+                    Assert.Equal("http://pseudomuto.com/", this._subject.Data.NoteURL.ToString());
+                }
+
+                public void Dispose()
+                {
+                    this.APIClient.Authorizations().DeleteAuthorization(this._subject.Data.Id);
+                }
+            }
+
+            public class WhenNotAvailable : BasicAuthIntegrationTest
+            {
+                private IRestResponse _subject;
+
+                protected override void Setup()
+                {
+                    // update a non-existent token
+                    this._subject = this.APIClient.Authorizations().UpdateAuthorization(0, new AuthorizationUpdateOptions());
+                }
+
+                [Fact]
+                public void CompletesTheRequestWithoutError()
+                {
+                    Assert.Equal(ResponseStatus.Completed, this._subject.ResponseStatus);
+                }
+
+                [Fact]
+                public void ReturnsA404Response()
+                {
+                    Assert.Equal(HttpStatusCode.NotFound, this._subject.StatusCode);
+                }
+            }
+        }
     }
 }

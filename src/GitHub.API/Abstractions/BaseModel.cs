@@ -16,7 +16,7 @@ namespace GitHub.API
         {
         }
 
-        public string Serialize()
+        public virtual string Serialize()
         {
             var props = new Dictionary<string, object>();
 

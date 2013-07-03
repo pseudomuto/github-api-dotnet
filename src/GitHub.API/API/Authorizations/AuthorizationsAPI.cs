@@ -48,5 +48,15 @@ namespace GitHub.API
 
             return this._apiClient.ExecuteRequest(request);
         }
+
+        public IRestResponse<Authorization> UpdateAuthorization(long id, AuthorizationUpdateOptions options)
+        {
+            var request = new RestRequest("/authorizations/{id}", Method.PATCH);
+            request.AddUrlSegment("id", id.ToString());
+            request.RequestFormat = DataFormat.Json;
+            request.AddParameter("application/json", options.Serialize(), ParameterType.RequestBody);
+
+            return this._apiClient.ExecuteRequest<Authorization>(request);
+        }
     }
 }

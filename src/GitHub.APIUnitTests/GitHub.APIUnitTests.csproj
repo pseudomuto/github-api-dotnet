@@ -53,6 +53,7 @@
     <Compile Include="Extensions\String.cs" />
     <Compile Include="Fakes\FakeAPIClient.cs" />
     <Compile Include="Fakes\FakeModel.cs" />
+    <Compile Include="Model\AuthorizationUpdateOptions.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="ResourceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
