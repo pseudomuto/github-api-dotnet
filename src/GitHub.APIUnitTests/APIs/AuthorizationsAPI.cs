@@ -13,21 +13,6 @@ namespace GitHub.APIUnitTests.APIs
 {
     public class AuthorizationsAPI
     {
-        public abstract class BaseAuthorizationAPITest : APITest
-        {
-            private IRestRequest _subject;
-
-            protected IRestRequest Subject
-            {
-                get
-                {
-                    this._subject = this._subject ?? this._basicAuthClient.ProcessedRequest;
-                    return this._subject;
-                }
-            }
-
-        }
-
         public class Constructor
         {
             [Fact]
@@ -48,7 +33,7 @@ namespace GitHub.APIUnitTests.APIs
             }
         }
 
-        public class GetAllAuthorizations : BaseAuthorizationAPITest
+        public class GetAllAuthorizations : APITest
         {
             public GetAllAuthorizations()
             {
@@ -81,7 +66,7 @@ namespace GitHub.APIUnitTests.APIs
             }
         }
 
-        public class GetAuthorization : BaseAuthorizationAPITest
+        public class GetAuthorization : APITest
         {
             private static readonly long RESOURCE_ID = 1L;
 
@@ -137,7 +122,7 @@ namespace GitHub.APIUnitTests.APIs
             }            
         }
 
-        public class CreateAuthorization : BaseAuthorizationAPITest
+        public class CreateAuthorization : APITest
         {
             private AuthorizationCreateOptions _options = new AuthorizationCreateOptions
             {
@@ -187,7 +172,7 @@ namespace GitHub.APIUnitTests.APIs
             }
         }
 
-        public class DeleteAuthorization : BaseAuthorizationAPITest
+        public class DeleteAuthorization : APITest
         {
             private static readonly long RESOURCE_ID = 1L;
 
@@ -216,7 +201,7 @@ namespace GitHub.APIUnitTests.APIs
             }
         }
 
-        public class UpdateAuthorization : BaseAuthorizationAPITest
+        public class UpdateAuthorization : APITest
         {
             private static readonly long RESOURCE_ID = 1L;
 

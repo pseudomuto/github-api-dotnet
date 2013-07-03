@@ -14,6 +14,26 @@ namespace GitHub.API
         Token = 2
     }
 
+    #region [Workaround until new NuGet package is supplied]
+
+    public class GitHubOAuthProvider : OAuth2AuthorizationRequestHeaderAuthenticator
+    {
+        public GitHubOAuthProvider(string accessToken)            
+            : base(accessToken)
+        {
+        }
+
+        public override void Authenticate(IRestClient client, IRestRequest request)
+        {
+            if (!request.Parameters.Any(p => p.Name.Equals("Authorization", StringComparison.OrdinalIgnoreCase)))
+            {
+                request.AddParameter("Authorization", "token "+ this.AccessToken, ParameterType.HttpHeader);
+            }
+        }
+    }
+
+    #endregion
+
     public partial class APIClient
     {
         private static readonly string API_HOST = "https://api.github.com";
@@ -43,7 +63,7 @@ namespace GitHub.API
             if (string.IsNullOrEmpty(authToken)) throw new ArgumentNullException("authToken");
 
             this.AuthType = AuthType.Token;
-            this.Authenticator = new OAuth2AuthorizationRequestHeaderAuthenticator(authToken);
+            this.Authenticator = new GitHubOAuthProvider(authToken);
 
             return this;
         }
@@ -69,6 +89,11 @@ namespace GitHub.API
             }
 
             return new AuthorizationsAPI(this);
+        }
+
+        public UsersAPI Users()
+        {
+            return new UsersAPI(this);
         }
 
         #endregion
@@ -109,5 +134,5 @@ namespace GitHub.API
         {
             request.AddHeader("Content-Type", "application/json");
         }
-    }
+    }    
 }

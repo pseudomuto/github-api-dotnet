@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="APIClient.cs" />
     <Compile Include="APIs\AuthorizationsAPI.cs" />
+    <Compile Include="APIs\UsersAPI.cs" />
     <Compile Include="APITest.cs" />
     <Compile Include="Extensions\String.cs" />
     <Compile Include="Fakes\FakeAPIClient.cs" />
@@ -62,6 +63,7 @@
     <None Include="packages.config" />
     <EmbeddedResource Include="Resources\Authorizations\list.json" />
     <EmbeddedResource Include="Resources\Authorizations\item.json" />
+    <EmbeddedResource Include="Resources\Users\item.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GitHub.API\GitHub.API.csproj">

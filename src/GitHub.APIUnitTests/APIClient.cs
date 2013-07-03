@@ -87,7 +87,7 @@ namespace GitHub.APIUnitTests
                 [Fact]
                 public void SetsAuthenticatorToTokenAuthenticator()
                 {
-                    Assert.IsAssignableFrom(typeof(OAuth2Authenticator), this._subject.Authenticator);
+                    Assert.IsAssignableFrom(typeof(OAuth2AuthorizationRequestHeaderAuthenticator), this._subject.Authenticator);
                 }
             }
         }
@@ -114,7 +114,7 @@ namespace GitHub.APIUnitTests
             [Fact]
             public void SetsAuthenticatorToTokenAuthenticator()
             {
-                Assert.IsAssignableFrom(typeof(OAuth2Authenticator), this._subject.Authenticator);
+                Assert.IsAssignableFrom(typeof(OAuth2AuthorizationRequestHeaderAuthenticator), this._subject.Authenticator);
             }
 
             [Fact]
