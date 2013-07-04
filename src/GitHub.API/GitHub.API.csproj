@@ -51,8 +51,10 @@
     <Compile Include="API\Authorizations\AuthorizationsAPI.cs" />
     <Compile Include="API\Authorizations\AuthorizationUpdateOptions.cs" />
     <Compile Include="API\Users\UsersAPI.cs" />
+    <Compile Include="Extensions\IRestResponseExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Model\Authorization.cs" />
+    <Compile Include="Model\LinkHeader.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\UserPlan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

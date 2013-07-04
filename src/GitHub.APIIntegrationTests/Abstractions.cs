@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GitHub.APIIntegrationTests
 {
-    public abstract class IntegrationTest
+    public class IntegrationTest
     {
         protected APIClient APIClient { get; private set; }
 
@@ -18,7 +18,11 @@ namespace GitHub.APIIntegrationTests
             this.Setup();
         }
 
-        protected abstract APIClient CreateClient();
+        protected virtual APIClient CreateClient()
+        {
+            return new APIClient();
+        }
+
         protected virtual void Setup() { }
     }
 

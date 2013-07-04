@@ -56,6 +56,7 @@
     <Compile Include="Fakes\FakeModel.cs" />
     <Compile Include="Model\AuthorizationUpdateOptions.cs" />
     <Compile Include="Model\BaseModel.cs" />
+    <Compile Include="Model\LinkHeader.cs" />
     <Compile Include="ResourceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -64,6 +65,7 @@
     <EmbeddedResource Include="Resources\Authorizations\list.json" />
     <EmbeddedResource Include="Resources\Authorizations\item.json" />
     <EmbeddedResource Include="Resources\Users\item.json" />
+    <EmbeddedResource Include="Resources\Users\list.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GitHub.API\GitHub.API.csproj">

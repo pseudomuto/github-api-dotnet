@@ -121,5 +121,38 @@ namespace GitHub.APIUnitTests.APIs
                 Assert.Equal(expectedDate, data.CreatedAt);
             }
         }
+
+        public class GetAllUsers : APITest
+        {
+            public GetAllUsers()
+            {
+                this._basicAuthClient.Users().GetAllUsers();
+            }
+
+            [Fact]
+            public void UsesGETMethod()
+            {
+                Assert.Equal(Method.GET, this.Subject.Method);
+            }
+
+            [Fact]
+            public void RequestsCorrectEndpoint()
+            {
+                Assert.Equal("/users", this.Subject.Resource);
+            }
+
+            [Fact]
+            public void ParsesResults()
+            {
+                var response = new RestResponse<User>
+                {
+                    Content = this.GetResourceString("Users.list.json")
+                };
+
+                var json = new JsonDeserializer();
+                var data = json.Deserialize<List<User>>(response);
+                Assert.NotEmpty(data);
+            }
+        }
     }
 }

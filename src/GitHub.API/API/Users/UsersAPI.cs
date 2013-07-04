@@ -34,5 +34,11 @@ namespace GitHub.API
 
             return this._apiClient.ExecuteRequest<User>(request);
         }
+
+        public IRestResponse<List<User>> GetAllUsers()
+        {
+            var request = new RestRequest("/users");
+            return this._apiClient.ExecuteRequest<List<User>>(request);
+        }
     }
 }
