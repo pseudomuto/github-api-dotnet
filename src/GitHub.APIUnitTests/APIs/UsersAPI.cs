@@ -257,5 +257,59 @@ namespace GitHub.APIUnitTests.APIs
                 Assert.True(emails[0].Verified);
             }
         }
+
+        public class AddEmails : APITest
+        {
+            public AddEmails()
+            {
+                this._tokenAuthClient.Users().AddEmails("david.muto@gmail.com", "davidmuto@gmail.com");
+            }
+
+            [Fact]
+            public void UsesPOSTMethod()
+            {
+                Assert.Equal(Method.POST, this.Subject.Method);
+            }
+
+            [Fact]
+            public void RequestsCorrectEndpoint()
+            {
+                Assert.Equal("/user/emails", this.Subject.Resource);
+            }
+
+            [Fact]
+            public void SetsRequestBody()
+            {
+                var body = this.Subject.Parameters.First(p => p.Type.Equals(ParameterType.RequestBody));
+                Assert.Equal("[\"david.muto@gmail.com\",\"davidmuto@gmail.com\"]", body.Value.ToString());
+            }
+        }
+
+        public class DeleteEmails : APITest
+        {
+            public DeleteEmails()
+            {
+                this._basicAuthClient.Users().DeleteEmails("david.muto@gmail.com", "davidmuto@gmail.com");
+            }
+
+            [Fact]
+            public void UsesDELETEMethod()
+            {
+                Assert.Equal(Method.DELETE, this.Subject.Method);
+            }
+
+            [Fact]
+            public void RequestsCorrectEndpoint()
+            {
+                Assert.Equal("/user/emails", this.Subject.Resource);
+            }
+
+            [Fact]
+            public void SetsRequestBody()
+            {
+                var body = this.Subject.Parameters.First(p => p.Type.Equals(ParameterType.RequestBody));
+                Assert.Equal("[\"david.muto@gmail.com\",\"davidmuto@gmail.com\"]", body.Value.ToString());
+            }
+        }
     }
 }

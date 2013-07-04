@@ -57,5 +57,23 @@ namespace GitHub.API
             var request = new RestRequest("/user/emails");
             return this.APIClient.ExecuteRequest<List<UserEmail>>(request);
         }
+
+        public IRestResponse<List<string>> AddEmails(params string[] emails)
+        {
+            var request = new RestRequest("/user/emails", Method.POST);
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(emails);
+
+            return this.APIClient.ExecuteRequest<List<string>>(request);
+        }
+
+        public IRestResponse<List<string>> DeleteEmails(params string[] emails)
+        {
+            var request = new RestRequest("/user/emails", Method.DELETE);
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(emails);
+
+            return this.APIClient.ExecuteRequest<List<string>>(request);
+        }
     }
 }

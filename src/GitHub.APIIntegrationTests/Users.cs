@@ -241,5 +241,63 @@ namespace GitHub.APIIntegrationTests
                 Assert.NotEmpty(this._subject.Data);               
             }
         }
+
+        public class DeleteEmails : TokenAuthIntegrationTest
+        {
+            private IRestResponse<List<string>> _subject;
+
+            protected override void Setup()
+            {
+                var response = this.APIClient.Users().AddEmails("someaccount@gmail.com");
+                this._subject = this.APIClient.Users().DeleteEmails("someaccount@gmail.com");
+            }
+
+            [Fact]
+            public void CompletesRequestWithoutError()
+            {
+                Assert.Equal(ResponseStatus.Completed, this._subject.ResponseStatus);
+            }
+
+            [Fact]
+            public void ReturnsA204Response()
+            {
+                Assert.Equal(HttpStatusCode.NoContent, this._subject.StatusCode);
+            }
+        }
+
+        public class AddEmails : BasicAuthIntegrationTest, IDisposable
+        {
+            private IRestResponse<List<string>> _subject;
+
+            protected override void Setup()
+            {
+                this._subject = this.APIClient.Users().AddEmails("someaccount@gmail.com");
+            }
+
+            [Fact]
+            public void CompletesRequestWithoutError()
+            {
+                Assert.Equal(ResponseStatus.Completed, this._subject.ResponseStatus);
+            }
+
+            [Fact]
+            public void ReturnsA201Response()
+            {
+                Assert.Equal(HttpStatusCode.Created, this._subject.StatusCode);
+            }
+
+            [Fact]
+            public void ReturnsNewEmailAddresses()
+            {
+                Assert.Equal(1, this._subject.Data.Count(e => e.Equals("someaccount@gmail.com")));
+            }
+
+            public void Dispose()
+            {
+                // clean up 
+                this.APIClient.Users().DeleteEmails("someaccount@gmail.com");
+            }
+        }
+
     }
 }
