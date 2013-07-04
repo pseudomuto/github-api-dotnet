@@ -1,4 +1,5 @@
 ﻿using GitHub.APIUnitTests.Fakes;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,23 @@ namespace GitHub.APIUnitTests
         protected FakeAPIClient _noAuthClient = new FakeAPIClient();
         protected FakeAPIClient _tokenAuthClient = new FakeAPIClient("myAuthToken");
         protected FakeAPIClient _basicAuthClient = new FakeAPIClient("user", "pass");
+
+        private IRestRequest _subject;
+
+        protected IRestRequest Subject
+        {
+            get
+            {
+                if (this._subject == null)
+                {
+                    this._subject = this._basicAuthClient.ProcessedRequest;
+                    if (this._subject == null) this._subject = this._tokenAuthClient.ProcessedRequest;
+                    if (this._subject == null) this._subject = this._noAuthClient.ProcessedRequest;
+                }
+
+                return this._subject;
+            }
+        }
 
         protected void SetResourceName(string name)
         {

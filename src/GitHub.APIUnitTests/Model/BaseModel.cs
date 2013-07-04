@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace GitHub.APIUnitTests.Model
+namespace GitHub.APIUnitTests.Headers
 {
     public class BaseModel
     {
