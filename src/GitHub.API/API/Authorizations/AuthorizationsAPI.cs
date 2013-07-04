@@ -7,21 +7,17 @@ using System.Threading.Tasks;
 
 namespace GitHub.API
 {
-    public class AuthorizationsAPI
+    public class AuthorizationsAPI : BaseAPI
     {
-        private APIClient _apiClient;
-
         internal AuthorizationsAPI(APIClient apiClientInstance)
+            : base(apiClientInstance)
         {
-            if (apiClientInstance == null) throw new ArgumentNullException("apiClientInstance");
-
-            this._apiClient = apiClientInstance;
         }
 
         public IRestResponse<List<Authorization>> GetAllAuthorizations()
         {            
             var request = new RestRequest("/authorizations", Method.GET);
-            return this._apiClient.ExecuteRequest<List<Authorization>>(request);
+            return this.APIClient.ExecuteRequest<List<Authorization>>(request);
         }
 
         public IRestResponse<Authorization> GetAuthorization(long id)
@@ -29,7 +25,7 @@ namespace GitHub.API
             var request = new RestRequest("/authorizations/{id}");
             request.AddUrlSegment("id", id.ToString());
 
-            return this._apiClient.ExecuteRequest<Authorization>(request);
+            return this.APIClient.ExecuteRequest<Authorization>(request);
         }
 
         public IRestResponse<Authorization> CreateAuthorization(AuthorizationCreateOptions options)
@@ -38,7 +34,7 @@ namespace GitHub.API
             request.RequestFormat = DataFormat.Json;
             request.AddParameter("application/json", options.Serialize(), ParameterType.RequestBody);
 
-            return this._apiClient.ExecuteRequest<Authorization>(request);
+            return this.APIClient.ExecuteRequest<Authorization>(request);
         }
 
         public IRestResponse DeleteAuthorization(long id)
@@ -46,7 +42,7 @@ namespace GitHub.API
             var request = new RestRequest("/authorizations/{id}", Method.DELETE);
             request.AddUrlSegment("id", id.ToString());
 
-            return this._apiClient.ExecuteRequest(request);
+            return this.APIClient.ExecuteRequest(request);
         }
 
         public IRestResponse<Authorization> UpdateAuthorization(long id, AuthorizationUpdateOptions options)
@@ -56,7 +52,7 @@ namespace GitHub.API
             request.RequestFormat = DataFormat.Json;
             request.AddParameter("application/json", options.Serialize(), ParameterType.RequestBody);
 
-            return this._apiClient.ExecuteRequest<Authorization>(request);
+            return this.APIClient.ExecuteRequest<Authorization>(request);
         }
     }
 }

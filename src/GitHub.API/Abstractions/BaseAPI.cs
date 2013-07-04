@@ -8,11 +8,12 @@ namespace GitHub.API
 {
     public abstract class BaseAPI
     {
-        public APIClient APIClient { get; private set; }
+        protected APIClient APIClient { get; private set; }
 
         protected BaseAPI(APIClient apiClientInstance)
         {
             if (apiClientInstance == null) throw new ArgumentNullException("apiClientInstance");
+
             this.APIClient = apiClientInstance;
         }
     }

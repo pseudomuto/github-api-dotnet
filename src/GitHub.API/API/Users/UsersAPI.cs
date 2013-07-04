@@ -7,15 +7,11 @@ using System.Threading.Tasks;
 
 namespace GitHub.API
 {
-    public class UsersAPI
+    public class UsersAPI : BaseAPI
     {
-        private APIClient _apiClient;
-
         internal UsersAPI(APIClient apiClientInstance)
+            : base(apiClientInstance)
         {
-            if (apiClientInstance == null) throw new ArgumentNullException("apiClientInstance");
-
-            this._apiClient = apiClientInstance;
         }
 
         public IRestResponse<User> GetUser(string userName = null)
@@ -32,7 +28,7 @@ namespace GitHub.API
                 request.AddUrlSegment("user", userName);
             }
 
-            return this._apiClient.ExecuteRequest<User>(request);
+            return this.APIClient.ExecuteRequest<User>(request);
         }
 
         public IRestResponse<List<User>> GetAllUsers(Uri link = null)
@@ -41,10 +37,10 @@ namespace GitHub.API
 
             if (link != null)
             {
-                request = this._apiClient.MakeRequestFromUri(link);
+                request = this.APIClient.MakeRequestFromUri(link);
             }
 
-            return this._apiClient.ExecuteRequest<List<User>>(request);
+            return this.APIClient.ExecuteRequest<List<User>>(request);
         }
 
         public IRestResponse<User> UpdateUser(UserUpdateOptions options)
@@ -53,13 +49,13 @@ namespace GitHub.API
             request.RequestFormat = DataFormat.Json;
             request.AddParameter("application/json", options.Serialize(), ParameterType.RequestBody);
 
-            return this._apiClient.ExecuteRequest<User>(request);
+            return this.APIClient.ExecuteRequest<User>(request);
         }
 
         public IRestResponse<List<UserEmail>> GetEmails()
         {
             var request = new RestRequest("/user/emails");
-            return this._apiClient.ExecuteRequest<List<UserEmail>>(request);
+            return this.APIClient.ExecuteRequest<List<UserEmail>>(request);
         }
     }
 }
