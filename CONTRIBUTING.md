@@ -10,9 +10,23 @@ Happy to receive any help I can get. This includes documents, bug reporting, iss
 	* Make sure the issue doesn't already exist
 	* Clearly describe (with as much detail as you can) the issue including steps to reproduce if possible
 * Fork the repo (using the button on the top right on GitHub)
-* You can build the project using Visual Studio. Currently, I'm using VS 2012 Update 2
+* You can build the project using Visual Studio. Currently, I'm using VS 2012 Update 3
 
 This project is using [RestSharp](http://restsharp.org/) for handling communication with GitHub and [xUnit](http://xunit.codeplex.com/) for testing. NuGet Package Restore is on, so you should get these packages on the first build.
+
+## Running the Tests
+
+This project uses `unit tests` to ensure that the requests are setup correctly and `integration tests` to verify correct responses from the API. In order to run the integration tests, you'll need to create an App.config file in the `GitHub.APIIntegrationTests` project with the following settings:
+
+	<appSettings>
+	    <add key="GITHUB_API_USERNAME" value="YOUR_GITHUB_USERNAME"/>
+	    <add key="GITHUB_API_PASSWORD" value="YOUR_GITHUB_PASSWORD"/>
+		<add key="GITHUB_API_TOKEN" value="YOUR_PERSONAL_API_ACCESS_TOKEN"/>
+	</appSettings>
+
+You can create a Personal API Access Key here: <https://github.com/settings/applications>.
+
+__*This file has been added to `.gitignore` so your password/token will never be checked-in or shared.*__
 
 ## Making Changes
 
