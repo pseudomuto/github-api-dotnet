@@ -94,7 +94,7 @@ namespace GitHub.APIUnitTests.APIs
                 Assert.Equal("https://api.github.com/users/octocat", data.URL.ToString());
                 Assert.Equal("monalisa octocat", data.Name);
                 Assert.Equal("GitHub", data.Company);
-                Assert.Equal("https://github.com/blog", data.Blog);
+                Assert.Equal("https://github.com/blog", data.Blog.ToString());
                 Assert.Equal("San Francisco", data.Location);
                 Assert.Equal("octocat@github.com", data.Email);
                 Assert.False(data.Hireable);
@@ -183,6 +183,41 @@ namespace GitHub.APIUnitTests.APIs
                     var since = this.Subject.Parameters.First(p => p.Name.Equals("since", StringComparison.OrdinalIgnoreCase));
                     Assert.Equal("3", since.Value.ToString());
                 }
+            }
+        }
+
+        public class UpdateUser : APITest
+        {
+            public UpdateUser()
+            {
+                var options = new API.UserUpdateOptions();
+                options.Name = "David Muto";
+
+                this._tokenAuthClient.Users().UpdateUser(options);
+            }
+
+            [Fact]
+            public void UsesPATCHMethod()
+            {
+                Assert.Equal(Method.PATCH, this.Subject.Method);
+            }
+
+            [Fact]
+            public void RequestsCorrectEndpoint()
+            {
+                Assert.Equal("/user", this.Subject.Resource);
+            }
+
+            [Fact]
+            public void SetsRequestFormatToJSON()
+            {
+                Assert.Equal(DataFormat.Json, this.Subject.RequestFormat);
+            }
+
+            [Fact]
+            public void SetsRequestBody()
+            {
+                Assert.Equal(1, this.Subject.Parameters.Count(p => p.Type.Equals(ParameterType.RequestBody)));
             }
         }
     }

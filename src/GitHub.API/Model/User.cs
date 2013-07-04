@@ -26,7 +26,7 @@ namespace GitHub.API
 
         public Uri HtmlURL { get; set; }
         
-        public string Blog { get; set; }
+        public Uri Blog { get; set; }
 
         public string Location { get; set; }
 

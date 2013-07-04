@@ -9,8 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-using GitHub.API;
-
 namespace GitHub.APIIntegrationTests
 {
     public class Users
@@ -168,6 +166,49 @@ namespace GitHub.APIIntegrationTests
                 public void SuppliesTheNextPageURL()
                 {
                     Assert.NotNull(this._subject.GetLinkHeader().Next());
+                }
+            }
+        }
+
+        public class UpdateUser
+        {
+            public class WhenAuthenticated : TokenAuthIntegrationTest
+            {
+                private IRestResponse<User> _subject;
+                
+                public WhenAuthenticated()
+                {
+                    var response = this.APIClient.Users().GetUser();
+
+                    var options = new UserUpdateOptions(true);
+                    options.Name = response.Data.Name;
+                    options.Email = response.Data.Email;
+                    options.Blog = response.Data.Blog;
+                    options.Company = response.Data.Company;
+                    options.Location = response.Data.Location;
+                    options.Hireable = response.Data.Hireable;
+                    options.Bio = response.Data.Bio;
+
+                    this._subject = this.APIClient.Users().UpdateUser(options);
+                }
+
+                [Fact]
+                public void CompletesRequestWithoutError()
+                {
+                    Assert.Equal(ResponseStatus.Completed, this._subject.ResponseStatus);
+                }
+
+                [Fact]
+                public void ReturnsA200Response()
+                {
+                    Assert.Equal(HttpStatusCode.OK, this._subject.StatusCode);
+                }
+
+                [Fact]
+                public void ReturnsTheUpdatedUser()
+                {
+                    Assert.NotNull(this._subject.Data);
+                    Assert.Equal(ConfigurationManager.AppSettings["GITHUB_API_USERNAME"], this._subject.Data.Login);
                 }
             }
         }

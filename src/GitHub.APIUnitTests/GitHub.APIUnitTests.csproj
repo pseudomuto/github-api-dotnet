@@ -58,6 +58,7 @@
     <Compile Include="Model\AuthorizationUpdateOptions.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Headers\LinkHeader.cs" />
+    <Compile Include="Model\UserUpdateOptions.cs" />
     <Compile Include="ResourceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

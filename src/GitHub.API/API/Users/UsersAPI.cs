@@ -46,5 +46,14 @@ namespace GitHub.API
 
             return this._apiClient.ExecuteRequest<List<User>>(request);
         }
+
+        public IRestResponse<User> UpdateUser(UserUpdateOptions options)
+        {
+            var request = new RestRequest("/user", Method.PATCH);
+            request.RequestFormat = DataFormat.Json;
+            request.AddParameter("application/json", options.Serialize(), ParameterType.RequestBody);
+
+            return this._apiClient.ExecuteRequest<User>(request);
+        }
     }
 }

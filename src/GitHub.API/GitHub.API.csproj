@@ -51,6 +51,7 @@
     <Compile Include="API\Authorizations\AuthorizationsAPI.cs" />
     <Compile Include="API\Authorizations\AuthorizationUpdateOptions.cs" />
     <Compile Include="API\Users\UsersAPI.cs" />
+    <Compile Include="API\Users\UserUpdateOptions.cs" />
     <Compile Include="Extensions\IRestResponseExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Headers\RateLimitHeader.cs" />

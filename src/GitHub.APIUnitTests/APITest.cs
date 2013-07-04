@@ -20,7 +20,13 @@ namespace GitHub.APIUnitTests
         {
             get
             {
-                this._subject = this._subject ?? this._basicAuthClient.ProcessedRequest;
+                if (this._subject == null)
+                {
+                    this._subject = this._basicAuthClient.ProcessedRequest;
+                    if (this._subject == null) this._subject = this._tokenAuthClient.ProcessedRequest;
+                    if (this._subject == null) this._subject = this._noAuthClient.ProcessedRequest;
+                }
+
                 return this._subject;
             }
         }
