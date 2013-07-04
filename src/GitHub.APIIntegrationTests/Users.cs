@@ -90,7 +90,7 @@ namespace GitHub.APIIntegrationTests
 
         public class GetAllUsers
         {
-            public class WhenGivenNoArguments : IntegrationTest
+            public class WhenGivenNoArguments : BasicAuthIntegrationTest
             {
                 private IRestResponse<List<User>> _subject;
 
@@ -118,11 +118,58 @@ namespace GitHub.APIIntegrationTests
                 }
 
                 [Fact]
+                public void SuppliesTheFirstPageURL()
+                {
+                    Assert.NotNull(this._subject.GetLinkHeader().First());
+                }
+
+                [Fact]
                 public void SuppliesTheNextPageURL()
                 {
-                    Assert.NotNull(this._subject.Links().Next());
+                    Assert.NotNull(this._subject.GetLinkHeader().Next());
                 }
             }            
+
+            public class WhenGivenTheNextLink : TokenAuthIntegrationTest
+            {
+                private IRestResponse<List<User>> _subject;
+
+                protected override void Setup()
+                {
+                    var response = this.APIClient.Users().GetAllUsers();
+                    this._subject = this.APIClient.Users().GetAllUsers(response.GetLinkHeader().Next());
+                }
+
+                [Fact]
+                public void CompletesRequestWithoutError()
+                {
+                    Assert.Equal(ResponseStatus.Completed, this._subject.ResponseStatus);
+                }
+
+                [Fact]
+                public void ReturnsA200Response()
+                {
+                    Assert.Equal(HttpStatusCode.OK, this._subject.StatusCode);
+                }
+
+                [Fact]
+                public void ReturnsSomeUsers()
+                {
+                    Assert.NotEmpty(this._subject.Data);
+                }
+
+                [Fact]
+                public void SuppliesTheFirstPageURL()
+                {
+                    Assert.NotNull(this._subject.GetLinkHeader().First());
+                }
+
+                [Fact]
+                public void SuppliesTheNextPageURL()
+                {
+                    Assert.NotNull(this._subject.GetLinkHeader().Next());
+                }
+            }
         }
     }
 }

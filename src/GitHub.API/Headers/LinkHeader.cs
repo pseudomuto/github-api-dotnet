@@ -13,13 +13,13 @@ namespace GitHub.API
         
         private IDictionary<string, string> _values;
 
-        public Uri Prev() { return new Uri(this._values["prev"]); }
+        public Uri Prev() { return this.ValueOrDefault("prev"); }
 
-        public Uri Next() { return new Uri(this._values["next"]); }
+        public Uri Next() { return this.ValueOrDefault("next"); }
 
-        public Uri First() { return new Uri(this._values["first"]); }
+        public Uri First() { return this.ValueOrDefault("first"); }
 
-        public Uri Last() { return new Uri(this._values["last"]); }
+        public Uri Last() { return this.ValueOrDefault("last"); }
             
         public LinkHeader(string headerValue)
         {
@@ -29,8 +29,18 @@ namespace GitHub.API
             foreach (var value in headerValue.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 var match = linkRegex.Match(value);
-                this._values.Add(match.Groups[2].Value, match.Groups[1].Value);
+                if (match != null)
+                {
+                    this._values.Add(match.Groups[2].Value, match.Groups[1].Value);
+                }
             }
+        }
+
+        private Uri ValueOrDefault(string name)
+        {
+            if (!this._values.ContainsKey(name)) return null;
+
+            return new Uri(this._values[name]);
         }
     }
 }

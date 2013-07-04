@@ -35,9 +35,15 @@ namespace GitHub.API
             return this._apiClient.ExecuteRequest<User>(request);
         }
 
-        public IRestResponse<List<User>> GetAllUsers()
+        public IRestResponse<List<User>> GetAllUsers(Uri link = null)
         {
-            var request = new RestRequest("/users");
+            IRestRequest request = new RestRequest("/users");
+
+            if (link != null)
+            {
+                request = this._apiClient.MakeRequestFromUri(link);
+            }
+
             return this._apiClient.ExecuteRequest<List<User>>(request);
         }
     }

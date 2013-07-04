@@ -53,8 +53,9 @@
     <Compile Include="API\Users\UsersAPI.cs" />
     <Compile Include="Extensions\IRestResponseExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Headers\RateLimitHeader.cs" />
     <Compile Include="Model\Authorization.cs" />
-    <Compile Include="Model\LinkHeader.cs" />
+    <Compile Include="Headers\LinkHeader.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\UserPlan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

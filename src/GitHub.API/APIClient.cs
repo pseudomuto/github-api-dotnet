@@ -124,6 +124,24 @@ namespace GitHub.API
             return client.Execute<TModel>(request);
         }
 
+        protected internal IRestRequest MakeRequestFromUri(Uri link)
+        {
+            var request = new RestRequest(link.AbsolutePath);
+            if (!string.IsNullOrEmpty(link.Query))
+            {
+                string[] parts;
+                var parameters = link.Query.TrimStart('?').Split(new char[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (var param in parameters)
+                {
+                    parts = param.Split('=');
+                    request.AddParameter(parts[0], parts[1]);
+                }
+            }
+
+            return request;
+        }
+
         protected void PrepareRequest(IRestRequest request)
         {
             // add headers...

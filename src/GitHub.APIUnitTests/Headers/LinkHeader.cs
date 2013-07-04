@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace GitHub.APIUnitTests.Model
+namespace GitHub.APIUnitTests.Headers
 {
     public class LinkHeader
     {
@@ -28,6 +28,8 @@ namespace GitHub.APIUnitTests.Model
                 
                 Assert.Equal("https://api.github.com/user/repos?page=3&per_page=100", header.Next().ToString());
                 Assert.Equal("https://api.github.com/user/repos?page=50&per_page=100", header.Last().ToString());
+                Assert.Null(header.Prev());
+                Assert.Null(header.First());
             }
         }
     }

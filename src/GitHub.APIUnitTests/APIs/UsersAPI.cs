@@ -122,36 +122,67 @@ namespace GitHub.APIUnitTests.APIs
             }
         }
 
-        public class GetAllUsers : APITest
+        public class GetAllUsers 
         {
-            public GetAllUsers()
+            public class WhenGivenNoArguments : APITest
             {
-                this._basicAuthClient.Users().GetAllUsers();
-            }
-
-            [Fact]
-            public void UsesGETMethod()
-            {
-                Assert.Equal(Method.GET, this.Subject.Method);
-            }
-
-            [Fact]
-            public void RequestsCorrectEndpoint()
-            {
-                Assert.Equal("/users", this.Subject.Resource);
-            }
-
-            [Fact]
-            public void ParsesResults()
-            {
-                var response = new RestResponse<User>
+                public WhenGivenNoArguments()
                 {
-                    Content = this.GetResourceString("Users.list.json")
-                };
+                    this._basicAuthClient.Users().GetAllUsers();
+                }
 
-                var json = new JsonDeserializer();
-                var data = json.Deserialize<List<User>>(response);
-                Assert.NotEmpty(data);
+                [Fact]
+                public void UsesGETMethod()
+                {
+                    Assert.Equal(Method.GET, this.Subject.Method);
+                }
+
+                [Fact]
+                public void RequestsCorrectEndpoint()
+                {
+                    Assert.Equal("/users", this.Subject.Resource);
+                }
+
+                [Fact]
+                public void ParsesResults()
+                {
+                    var response = new RestResponse<User>
+                    {
+                        Content = this.GetResourceString("Users.list.json")
+                    };
+
+                    var json = new JsonDeserializer();
+                    var data = json.Deserialize<List<User>>(response);
+                    Assert.NotEmpty(data);
+                }
+            }
+
+            public class WhenGivenAUri : APITest
+            {
+                public WhenGivenAUri()
+                {
+                    var uri = new Uri("https://api.github.com/users?since=3");
+                    this._basicAuthClient.Users().GetAllUsers(uri);
+                }
+
+                [Fact]
+                public void UsesGETMethod()
+                {
+                    Assert.Equal(Method.GET, this.Subject.Method);
+                }
+
+                [Fact]
+                public void RequestsCorrectEndpoint()
+                {
+                    Assert.Equal("/users", this.Subject.Resource);
+                }
+
+                [Fact]
+                public void SetsSinceParameter()
+                {
+                    var since = this.Subject.Parameters.First(p => p.Name.Equals("since", StringComparison.OrdinalIgnoreCase));
+                    Assert.Equal("3", since.Value.ToString());
+                }
             }
         }
     }
