@@ -212,5 +212,34 @@ namespace GitHub.APIIntegrationTests
                 }
             }
         }
+
+        public class GetEmails : TokenAuthIntegrationTest
+        {
+            private IRestResponse<List<UserEmail>> _subject;
+
+            protected override void Setup()
+            {
+                this._subject = this.APIClient.Users().GetEmails();
+            }
+
+            [Fact]
+            public void CompletesRequestWithoutError()
+            {
+                Assert.Equal(ResponseStatus.Completed, this._subject.ResponseStatus);
+            }
+
+            [Fact]
+            public void ReturnsA200Response()
+            {
+                Assert.Equal(HttpStatusCode.OK, this._subject.StatusCode);
+            }
+
+            [Fact]
+            public void RetrievesEmails()
+            {
+                Assert.NotNull(this._subject.Data);
+                Assert.NotEmpty(this._subject.Data);               
+            }
+        }
     }
 }

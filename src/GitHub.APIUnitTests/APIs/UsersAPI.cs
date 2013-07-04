@@ -220,5 +220,42 @@ namespace GitHub.APIUnitTests.APIs
                 Assert.Equal(1, this.Subject.Parameters.Count(p => p.Type.Equals(ParameterType.RequestBody)));
             }
         }
+
+        public class GetEmails : APITest
+        {
+            public GetEmails()
+            {
+                this._tokenAuthClient.Users().GetEmails();
+            }
+
+            [Fact]
+            public void UsesGETMethod()
+            {
+                Assert.Equal(Method.GET, this.Subject.Method);
+            }
+
+            [Fact]
+            public void RequestsCorrectEndpoint()
+            {
+                Assert.Equal("/user/emails", this.Subject.Resource);
+            }
+         
+            [Fact]
+            public void ParsesResponse()
+            {
+                var response = new RestResponse
+                {
+                    Content = this.GetResourceString("Users.emails.json")
+                };
+
+                var json = new JsonDeserializer();
+                var emails = json.Deserialize<List<UserEmail>>(response);
+                Assert.NotEmpty(emails);
+
+                Assert.Equal("octocat@github.com", emails[0].Email);
+                Assert.True(emails[0].Primary);
+                Assert.True(emails[0].Verified);
+            }
+        }
     }
 }

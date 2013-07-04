@@ -58,6 +58,7 @@
     <Compile Include="Model\Authorization.cs" />
     <Compile Include="Headers\LinkHeader.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="Model\UserEmail.cs" />
     <Compile Include="Model\UserPlan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

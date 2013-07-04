@@ -144,13 +144,9 @@ namespace GitHub.API
 
         protected void PrepareRequest(IRestRequest request)
         {
-            // add headers...
-            this.SetContentType(request);
-        }
-
-        private void SetContentType(IRestRequest request)
-        {
+            // add headers..
             request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("Accept", "application/vnd.github.v3");
         }
     }    
 }

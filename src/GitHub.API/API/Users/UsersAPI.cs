@@ -55,5 +55,11 @@ namespace GitHub.API
 
             return this._apiClient.ExecuteRequest<User>(request);
         }
+
+        public IRestResponse<List<UserEmail>> GetEmails()
+        {
+            var request = new RestRequest("/user/emails");
+            return this._apiClient.ExecuteRequest<List<UserEmail>>(request);
+        }
     }
 }

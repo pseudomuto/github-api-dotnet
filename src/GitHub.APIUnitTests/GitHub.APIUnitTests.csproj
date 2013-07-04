@@ -68,6 +68,7 @@
     <EmbeddedResource Include="Resources\Authorizations\item.json" />
     <EmbeddedResource Include="Resources\Users\item.json" />
     <EmbeddedResource Include="Resources\Users\list.json" />
+    <EmbeddedResource Include="Resources\Users\emails.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GitHub.API\GitHub.API.csproj">
