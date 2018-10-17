@@ -146,11 +146,19 @@ namespace GitHub.API
         {
             // add headers...
             this.SetContentType(request);
+            // Github v3 requires HTTP User-Agent header
+            // https://developer.github.com/v3/#user-agent-required
+            this.SetUserAgent(request);
         }
 
         private void SetContentType(IRestRequest request)
         {
             request.AddHeader("Content-Type", "application/json");
+        }
+
+        private void SetUserAgent(IRestClient request)
+        {
+            request.AddHeader("User-Agent", "github-api-dotnet (https://github.com/pseudomuto/github-api-dotnet)");
         }
     }    
 }
